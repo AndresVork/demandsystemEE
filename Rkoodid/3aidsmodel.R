@@ -1,4 +1,5 @@
 #TÖÖPÕLD. Puhastamata
+require(tidyverse)
 
 load(file = "Andmed/hbsexppriceslevel1.RData")
 

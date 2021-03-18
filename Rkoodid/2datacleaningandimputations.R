@@ -69,13 +69,17 @@ hbsexplvl1 <- hbsexp %>%  filter(!str_detect(commodity, "\\."))  %>%
     rename(shareold = share) %>% 
     group_by(year, quantile) %>% 
     mutate(share = shareold/sum(shareold)) %>% ungroup() %>% 
-  select(year, quantile, coicop, share)
+  select(year, quantile, coicop, commodity, share)
 
 ggplot(hbsexplvl1, aes(x=year, y= share, fill = coicop))+
   geom_area()+
   facet_wrap(~quantile) +
   scale_x_continuous(breaks = c(2010, 2015, 2019))
 
+# ggplot(hbsexplvl1, aes(x=year, y= share, fill = commodity))+
+#   geom_area()+
+#   facet_wrap(~quantile) +
+#   scale_x_continuous(breaks = c(2010, 2015, 2019))
 
 
 #Total consumption expenditures, needed for AIDS model
@@ -184,55 +188,63 @@ filter(coicop !="CP00")  %>%
   rename(shareold = share) %>% 
   group_by(year, quantile) %>% 
     mutate(share = shareold/sum(shareold)) %>% ungroup() %>% 
-  select(year, quantile, coicop, share)
+  select(year, quantile, coicop, commodity, share)
 
-ggplot(hbsexpoldlvl1, aes(x=year, y= share, fill = coicop))+
-   geom_area()+
-   facet_wrap(~quantile) +
-  scale_x_continuous(breaks = c(1996, 2001, 2007))
+# ggplot(hbsexpoldlvl1, aes(x=year, y= share, fill = coicop))+
+#    geom_area()+
+#    facet_wrap(~quantile) +
+#   scale_x_continuous(breaks = c(1996, 2001, 2007))
 
 #Valmis vana fail HBS fail
 
-
-#Append new and old data. Note that quantiles do not mathc
+#Append new and old data. Note that quantiles do not match
 
 hbslvl1 <- bind_rows(hbsexpoldlvl1, hbsexplvl1)
 
-ggplot(hbslvl1, aes(x=year, y= share, fill = coicop))+
-  geom_area()+
-  facet_wrap(~quantile)
+# ggplot(hbslvl1, aes(x=year, y= share, fill = coicop))+
+#   geom_area()+
+#   facet_wrap(~quantile)
 
 totals <- bind_rows(hbsexptotalold, hbsexptotal)
 
-ggplot(totals, aes(x=year, y= consexp, color = as.factor(quantile), group=quantile))+
-  geom_line() +
-  geom_point()
+# ggplot(totals, aes(x=year, y= consexp, color = as.factor(quantile), group=quantile))+
+#   geom_line() +
+#   geom_point()
 
 #Add totals to shares
-head(hbslvl1)
-head(totals)
+#head(hbslvl1)
+#head(totals)
 
 hbslvl1 <- hbslvl1 %>% left_join(totals, by = c("year", "quantile"))
 
 # Prices  --------------------
 load(file = "Andmed/hicp_en.RData")
-
-#Merged data
-#hbsexppriceslevel1 <- hbsexpshareslvl1  %>% left_join(hicp_en %>% rename(year = time, price = values) %>% select(coicop, year, price), by = c("coicop", "year"))
-#hbsexppriceslevel1 <- hbsexppriceslevel1 %>% select(year, group, coicop, share, price)
-
-
 hbsexppriceslevel1 <- hbslvl1  %>% left_join(hicp_en %>% rename(year = time, price = values) %>% 
                                                         select(coicop, year, price), by = c("coicop", "year")) %>% 
-  arrange(year, quantile, coicop)
+  arrange(year, quantile, coicop, commodity)
 
-#head(hbsexppriceslevel1)
+#Eesti keelsed nimetused
+hbsexppriceslevel1 <- hbsexppriceslevel1 %>% 
+  mutate (commodity_ee = case_when(
+    coicop == "CP00" ~ "Tarbimiskulud",
+    coicop == "CP01" ~ "Toit ja alkoholita joogid",
+    coicop == "CP02" ~ "Alkoholjoogid ja tubakas",
+    coicop == "CP03" ~ "Rõivad ja jalatsid",
+    coicop == "CP04" ~ "Eluase",
+    coicop == "CP05" ~ "Majapidamiskulud",
+    coicop == "CP06" ~ "Tervishoid",
+    coicop == "CP07" ~ "Transport",
+    coicop == "CP08" ~ "Side",
+    coicop == "CP09" ~ "Vaba aeg",
+    coicop == "CP10" ~ "Haridus",
+    coicop == "CP11" ~ "Restoranid ja hotellid",
+    coicop == "CP12" ~ "Mitmesugused kaubad ja teenused"
+      ))
 
 save(hbsexppriceslevel1, file = "Andmed/hbsexppriceslevel1.RData")
 
-
-
 #Annex
+
 #
 # 2            Consumption expenditure ; CP00 - All-items HICP
 # 3   Food and non-alcoholic beverages 100000;  CP01 - Food and non-alcoholic beverages
@@ -247,4 +259,41 @@ save(hbsexppriceslevel1, file = "Andmed/hbsexppriceslevel1.RData")
 # 12                         Education 1000000 CP10 - Education
 # 13            Restaurants and hotels 1100000 CP11 - Restaurants and hotels
 # 14  Miscellaneous goods and services 1200000 CP12 - Miscellaneous goods and services
+
+
+# LEU 2010-2019	Hinnaindeks
+# Kulutused kokku	
+# Tarbimiskulud	CP00 Kokku
+# Toit ja alkoholita joogid	CP01 Toit ja mittealkohoolsed joogid
+# Alkoholjoogid ja tubakas	CP02 Alkohoolsed joogid ja tubakatooted
+# Rõivad ja jalatsid	CP03 Riietus ja jalatsid
+# Eluase	CP04 Eluase
+# Majapidamiskulud	CP05 Majapidamine
+# Tervishoid	CP06 Tervishoid
+# Transport	CP07 Transport
+# Side	CP08 Side
+# Vaba aeg	CP09 Vaba aeg
+# Haridus	CP10 Haridus ja lasteasutused
+# Restoranid ja hotellid	CP11 Söömine väljaspool kodu, majutus
+# Mitmesugused kaubad ja teenused	CP12 Mitmesugused kaubad ja teenused
+
+# 
+#   
+#   
+#   mutate (commodity_ee = case_when(
+#     commodity == "Consumption expenditure" ~ "Tarbimiskulud",
+#     commodity == "Food and non-alcoholic beverages" ~ "Toit ja alkoholita joogid",
+#     commodity == "Alcoholic beverages and tobacco" ~ "Alkoholjoogid ja tubakas",
+#     commodity == "Clothing and footwear" ~ "Rõivad ja jalatsid",
+#     commodity == "Housing" ~ "Eluase",
+#     commodity == "Household equipment and operation" ~ "Majapidamiskulud",
+#     commodity == "Health" ~ "Tervishoid",
+#     commodity == "Transport" ~ "Transport",
+#     commodity == "Communication services" ~ "Side",
+#     commodity == "Recreation, leisure and entertainment" ~ "Vaba aeg",
+#     commodity == "Education" ~ "Haridus",
+#     commodity == "Hotels, cafés, restaurants" ~ "Restoranid ja hotellid",
+#     commodity == "Miscellaneous goods and services" ~ "Mitmesugused kaubad ja teenused",
+#     TRUE ~ "XXX"
+#   ))
 
