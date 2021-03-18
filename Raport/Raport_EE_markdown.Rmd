@@ -655,21 +655,38 @@ Nagu näha, siis hinnaelastsuste usalduspiirid on suured.
 ```{r eval=FALSE, include=FALSE}
 #Endale kontrolliks arvutuskäigud
 
+pMeans <- colMeans( dfw[ , priceNames ] )
+wMeans <- colMeans( dfw[ , shareNames ] )
+xtMean <- mean( dfw[ , "consexp" ] )
 
-#olgu osakaal = 0.3
-#Toidu sissetulekuelastsus
-1-(0.147762491/0.3)
-#0.5074584
+#Toidu sissetulekuelastsus hinnatuna keskmises punktis
+#Kontrollida, et too paketi käsk kuvab vist keskmise elastsuse
+1 + (laaidsResult$coef$beta["CP01share"]/wMeans["CP01share"])
+#0.5880587
 
 #Toidu omahinnaelastsus
-(0.34792652 - (-0.147762491)*0.3)/0.3 -1
+(laaidsResult$coef$gamma["CP01share", "CP01price"] - laaidsResult$coef$beta["CP01share"]*wMeans["CP01share"])/wMeans["CP01share"] -1
+#(0.34792652 - (-0.147762491)*0.3)/0.3 -1
+
+
+#Laspeyrese indeks
+laaidsResult <- aidsEst( priceNames, shareNames, "consexp", data = dfw,  priceIndex = "L" )
+#Toidu sissetulekuelastsus hinnatuna keskmises punktis
+1 + (laaidsResult$coef$beta["CP01share"]/wMeans["CP01share"])
+
+#Toidu omahinnaelastsus
+(laaidsResult$coef$gamma["CP01share", "CP01price"] - laaidsResult$coef$beta["CP01share"]*wMeans["CP01share"])/wMeans["CP01share"] -1
+
+#Eluase
+(laaidsResult$coef$gamma["CP04share", "CP04price"] - laaidsResult$coef$beta["CP04share"]*wMeans["CP04share"])/wMeans["CP04share"] -1
+
+#Tervishoid
+(laaidsResult$coef$gamma["CP06share", "CP06price"] - laaidsResult$coef$beta["CP06share"]*wMeans["CP06share"])/wMeans["CP06share"] -1
+
+#Restoranid
+(laaidsResult$coef$gamma["CP11share", "CP11price"] - laaidsResult$coef$beta["CP11share"]*wMeans["CP11share"])/wMeans["CP11share"] -1
 
 ```
-
-
-Lisame deterministliku trendi 
-
-
 
 
 ## Edasised sammud
@@ -677,15 +694,81 @@ Lisame deterministliku trendi
 
 ### Olemasolevate andmete ja mudeli tundlikkus
 
-- testida erinevate hindamismeetodite ja elaststuste lähendite mõju
-- testida deterministliku trendi kasutamise mõju (e.g. eelistuste muutus üle aastate) ja /või andmete metoodika muutumise mõju (indikaator uue ja vana LEU eristamiseks)
+- testida erinevate hindamismeetodite ja elastsuste lähendite mõju
+- testida deterministliku trendi kasutamise mõju (e.g. eelistuste muutus üle aastate) ja /või andmete metoodika muutumise mõju (indikaator uue ja vana LEU eristamiseks). Probleem - elastsuste arvutamise valemid pole ilmsed.
 - testida puuduvate osakaalude teiste imputeerimismeetodite mõju tulemustele 
+
+
+### Leibkonna eelarve uuringu mikroandmete põhine analüüs
+
+  - Agregeerimine LEU andmed vastavalt IO tabeli vajadustele (vt lisa)
+  - Hierarhiline nõudlussüsteem, kus vajalik
+  - Working-Leseri nõudlusvõrrand üksikute tootegruppide kohta
+
+
+```{r}
+
+library(readxl)
+dfcoicopio <- read_xlsx(path  = "../Andmed/Tegevusala tootegrupp coicop.xlsx", sheet ="andmed")
+#dfcoicopio <- read_xlsx(path  = "./Andmed/Tegevusala tootegrupp coicop.xlsx", sheet ="andmed") 
+
+dfcoicopio <- dfcoicopio %>% 
+  select(Tegevusala, EMTAK, `Kodumajapidamiste osakaal kogutoodangus`, Nimetus, COICOP, Hinnaindeks)
+
+colnames(dfcoicopio)<- c("Tegevusala IO tabelis", "EMTAK", "Kodumajapidamiste osakaal kogutoodangus",
+                         "Tarbimisgrupp", "COICOP", "Hinnaindeksi grupp")
+
+
+dfcoicopio$`Kodumajapidamiste osakaal kogutoodangus` <- round(dfcoicopio$`Kodumajapidamiste osakaal kogutoodangus`, 3)
+
+#dfcoicopio <- read_xlsx(path  = "C:/Users/avork/Documents/demandsystemEE/Andmed/Tegevusala tootegrupp #coicop.xlsx", sheet ="andmed")
+#colnames(dfcoicopio)
+
+#dfcoicopio <- read_xlsx(file = "../Andmed/Tegevusala tootegrupp coicop.xlsx", sheet ="Andmed")
+library(knitr)
+kable(dfcoicopio)
+
+```
+
+
 
 
 
 ## Lisa
 
-Parameetritele vastavad kõik elastsused on järgmised
+
+```{r eval=FALSE, include=FALSE}
+### Tundlikkusanalüüs trendi ja metoodika dummy osas - saab leida mõju parameetritele
+
+#Lisame indikaatormuutuja eristamaks uut ja vana LEU andmestikku
+
+dfw <- dfw %>% mutate(metoodikamuutus = (year>=2010)*1)
+
+laaidsResult_hype <- aidsEst( priceNames, shareNames, "consexp", shifterNames = c("metoodikamuutus"),  data = dfw,  priceIndex = "S")
+
+laaidsResult_trend <- aidsEst( priceNames, shareNames, "consexp", shifterNames = c("metoodikamuutus", "year"),  data = dfw,  priceIndex = "S")
+
+summary(laaidsResult)
+summary(laaidsResult_hype)
+summary(laaidsResult_trend)
+
+# library(stargazer)
+# stargazer(laaidsResult, laaidsResult_a, type = "text")
+
+#leian käsitsi mõju elastsustele
+#Hinnaelastsused
+
+
+
+
+```
+
+
+
+
+
+
+### Kõik elastsused on järgmised
 
 ```{r}
 elas(laaidsResult)
