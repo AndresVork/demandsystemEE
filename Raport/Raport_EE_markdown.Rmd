@@ -764,10 +764,6 @@ summary(laaidsResult_trend)
 ```
 
 
-
-
-
-
 ### Kõik elastsused on järgmised
 
 ```{r}
