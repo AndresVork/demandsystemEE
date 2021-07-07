@@ -81,7 +81,6 @@ ggplot(hbsexplvl1, aes(x=year, y= share, fill = coicop))+
 #   facet_wrap(~quantile) +
 #   scale_x_continuous(breaks = c(2010, 2015, 2019))
 
-
 #Total consumption expenditures, needed for AIDS model
 hbsexptotal <- hbsexp_en %>% gather(key = "quantile", value = "value", -year, -indicator, -commodity) %>% 
   filter(indicator == "Expenditure, euros",

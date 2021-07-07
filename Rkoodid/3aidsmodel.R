@@ -2,6 +2,7 @@
 require(tidyverse)
 
 load(file = "Andmed/hbsexppriceslevel1.RData")
+load(file = "Andmed/hicp_en.RData")
 
 #Shares
 ggplot(hbsexppriceslevel1, aes(x=year, y = share, color = as.factor(quantile))) +
