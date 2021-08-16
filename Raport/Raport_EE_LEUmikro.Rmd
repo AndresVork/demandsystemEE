@@ -595,15 +595,25 @@ Varasemalt on Eesti andmete põhjal AIDS meetodiga üritanud tarbimise hinna- ja
 
 <!-- TODO:! Lisada juurde teisi Eesti uuringuid, kui neid leidub. -->
 
-Euroopa Komisjoni JRC koostatud pikaajaline majandussektoreid hõlmav mudel FIDELIO [@kratena_fidelio_2017] kasutab samuti hinna- ja kogukulutuste elastsusi. Eraldi käsitletakse kestuskaupasid ja energiakaupasid.
-Mittekestus ja -energiakaupade hinna- ja kogukulutuste elastsused on järgmised.
+Euroopa Komisjoni JRC koostatud pikaajaline mitme-sektoriline makro-ökononoomiline mudel kaheksa peamise sektoriga FIDELIO 2 [@kratena_fidelio_2017] kasutab samuti hinna- ja kogukulutuste elastsusi. Mudeli hindamiseks on kasutatud 28 ELi riigi andmeid perioodi kohta 1995-2009 ning mudelis kasutati AIDSi süsteemi lihtsustatud versiooni. Eraldi käsitletakse kestuskaupasid ja energiakaupasid. Mittekestus ja -energiakaupade hinna- ja kogukulutuste elastsused on järgmised.
 
-![FIDELIO mudelis kasutatud elastused](fidelioelastsused.png){width=500px}
-Energia- ja transpordikaupade kogukulutuste elastsused on järgmised.
-
-![FIDELIO mudelis kasutatud energia- ja transpordikaupade sissetulekuelastused](fidelioenergiasissetulekuelastsused.png){width=500px}
+![FIDELIO 2 mudelis kasutatud elastused](fidelioelastsused.png){width=500px}
 
 Allikas: @kratena_fidelio_2017, lk 34
+
+Energia- ja transpordikaupade kogukulutuste elastsused on järgmised.
+
+![FIDELIO 2 mudelis kasutatud energia- ja transpordikaupade sissetulekuelastused](fidelioenergiasissetulekuelastsused.png){width=500px}
+
+Allikas: @kratena_fidelio_2017, lk 31
+
+
+[@copenhagen_economics_study_2008], mis analüüsis lisandväärtusmaksu muutmist ELis, hindas muuhulgas ka nõudluse hinna- ja kogukulutuste elastsused, kasutades Euroopa Liidu liikmesriikide tarbimise ja hinnaindeksite makroandmeid perioodil 1970-2002. Nõudluse elastsuseid hinnati 39 tarbimise kategoorias. Autorid kasutasid logaritmitud spetsifikatsiooni hinnangutes keskendudes omahinna elastsuselel. Tulemused näitavad, et omahinna elastsus on negatiivne enamike kaupade puhul ja positiivne kogutarbimise puhul. Detailsed tulemused on ära toodud alljärgnevas tabelis.
+
+
+![FIDELIO mudelis kasutatud energia- ja transpordikaupade sissetulekuelastused](copenhageneconomics2008elastsused.png){width=500px}
+
+Allikas: @copenhagen_economics_study_2008, Part B Appendices, lk 50
 
 
 Alljärgnevalt on toodud veel tulemused ka Poola ja Türgi kohta, mis oma arengutasemelt võiksid olla sarnased Eestile. Poola kohta hindas kasutades QUAIDS mudelit [@gostkowski_elasticity_2018].
