@@ -419,7 +419,7 @@ Enne komplitseeritud AIDS mudeli hindamist iseloomustame tarbimise seost sissetu
 
 Andmetest on selgelt näha, et väga tugev seos sissetuleku ja tarbimiskulutuste osakaalu vahel esineb toidukaupade (determinatsioonikordaja $R^2=0.93$), majapidamiskulude ($R^2=0.73$), transpordikulude ($R^2=0.80$) ja vaba ajaga seotud kulutuste puhul ($R^2=0.76$). Ülejäänud tarbimisgruppide puhul on seosed nõrgemad (nt tervishoid) või käituvad ka tarbimiskvintiilide lõikes lausa erinevalt (nt sidekulud või haridus).
 
-![Joonis. Hinnaindeksid kvintiilide jaoks](../joonised/osakaaljasissetulekkvintiilideloikes2.PNG){width=800px}
+![Joonis. Osakaalud kvintiilide lõikes](../joonised/osakaaljasissetulekkvintiilideloikes2.PNG){width=800px}
 
 Osade kaubagruppide puhul on näha, et ehkki keskmiselt valitseb positiivne seos kogu tarbimiskulude ja osakaalu vahel (nt grupid "Muud kaubad ja teenused" või "Riided ja jalatsid"), siis iga tarbimisgrupi sees on kogu tarbimiskulutuste kasvades osakaal vähenenud. Taolist võimalikku dünaamikat võib selgitada, kas hindade dünaamikaga või kvintiilide erineva sotsiaaldemograafilise struktuuriga (nt eakad inimesed kuuluvad enamasti kahte alumisse kvintiili).
 
@@ -476,7 +476,7 @@ Kõik tulemused viitavad, et toidukaubad, alkohol ja tubakas on alaelastsed kogu
 
 Samuti on alaelastsed eluasemekulutused elastsusega ca 0.6-0.7. Kokku moodustavad need kolm kaubagruppi ligikaudu kolmandiku tarbimiskuludest. Teised kaubagrupid on pigem üleelastsed, konkreetne punkthinnang sõltub hindamismeetodist.
 
-Sissetulekuelatsuste punkthinnangute usalduspiiride leidmiseks on erinevaid ligilähedasi valemeid. Alljärgnevalt on esitatud AIDS meetodiga hinnatud mudeli kogukulutuste elastsuste usalduspiirid kahest erinevast mudelist. Joonisel toodud elastsuste keskmised punktid ei lange täpselt kokku eelmises tabelis toodud keskväärtustega, sest elastsused on hinnatud erinevas punktis.
+Sissetulekuelastsuste punkthinnangute usalduspiiride leidmiseks on erinevaid ligilähedasi valemeid. Alljärgnevalt on esitatud AIDS meetodiga hinnatud mudeli kogukulutuste elastsuste usalduspiirid kahest erinevast mudelist. Joonisel toodud elastsuste keskmised punktid ei lange täpselt kokku eelmises tabelis toodud keskväärtustega, sest elastsused on hinnatud erinevas punktis.
 
 
 ```{r}
@@ -516,6 +516,9 @@ labs(title="Kogukulutuste elastsus", y = "Elastsus", x="", color ="Mudeli andmed
   coord_flip() +
   #geom_hline(yintercept=1)+
     theme_bw()
+
+ggsave(filename = "../joonised/kogukulutusteelastsus.PNG", width = 10, height = 8)
+#ggsave(filename = "joonised/kogukulutusteelastsus.PNG", width = 10, height = 8)
 
 ```
 
@@ -586,6 +589,10 @@ labs(title="Hinnaelastsus", y = "Elastsus", x="", color ="Mudeli andmed")  +
   theme_bw() +
   theme(legend.position = "bottom")
 
+ggsave(filename = "../joonised/hinnaeelastsus.PNG", width = 10, height = 8)
+#ggsave(filename = "joonised/hinnaeelastsus.PNG", width = 10, height = 8)
+
+
 ```
 
 
@@ -611,7 +618,7 @@ Allikas: @kratena_fidelio_2017, lk 31
 [@copenhagen_economics_study_2008], mis analüüsis lisandväärtusmaksu muutmist ELis, hindas muuhulgas ka nõudluse hinna- ja kogukulutuste elastsused, kasutades Euroopa Liidu liikmesriikide tarbimise ja hinnaindeksite makroandmeid perioodil 1970-2002. Nõudluse elastsuseid hinnati 39 tarbimise kategoorias. Autorid kasutasid logaritmitud spetsifikatsiooni hinnangutes keskendudes omahinna elastsuselel. Tulemused näitavad, et omahinna elastsus on negatiivne enamike kaupade puhul ja positiivne kogutarbimise puhul. Detailsed tulemused on ära toodud alljärgnevas tabelis.
 
 
-![FIDELIO mudelis kasutatud energia- ja transpordikaupade sissetulekuelastused](copenhageneconomics2008elastsused.png){width=500px}
+![Copenhagen economics (2008) sissetuleku- ja hinnaelastused](copenhageneconomics2008elastsused.png){width=500px}
 
 Allikas: @copenhagen_economics_study_2008, Part B Appendices, lk 50
 

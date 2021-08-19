@@ -1,0 +1,56 @@
+hinnaindeks 2000
+
+Grupp| Ühine mudel|  Fikseeritud efektiga mudel| 
+|:-------------|:--------------|
+| Toit ja alkoholita joogid| 0.536| 0.544| 
+| Alkoholjoogid ja tubakas| 0.792| 0.775| 
+| Rõivad ja jalatsid| 1.33| 0.645| 
+| Eluase| 0.699| 1.04| 
+| Majapidamiskulud| 1.58|1.62|  
+| Tervishoid|1.15 | 1.61| 
+| Transport| 1.86 | 1.62 | 
+| Side| 0.614 | 0.819| 
+| Vaba aeg| 1.48| 1.65 | 
+| Haridus| 1.93| 1.01 | 
+| Restoranid ja hotellid| 1.79| 1.40 | 
+| Mitmesugused kaubad ja teenused| 1.28 | 0.729|  
+
+hinnaindeks 2010
+
+
+LEU 2010-2020| Kogukulutuste elastsus| 
+|:-------------|:--------------|
+| Toit ja alkoholita joogid| 0.516 | 
+| Alkoholjoogid ja tubakas| 0.782 | 
+| Rõivad ja jalatsid| 1.34 | 
+| Eluase| 0.689 | 
+| Majapidamiskulud| 1.61 | 
+| Tervishoid|1.16 | 
+| Transport| 1.89 | 
+| Side| 0.598 | 
+| Vaba aeg| 1.50 | 
+| Haridus| 1.96 | 
+| Restoranid ja hotellid| 1.82 | 
+| Mitmesugused kaubad ja teenused| 1.29 | 
+
+
+Grupp| Stone| LaspeyresS | AIDS | 
+|:-------------|:--------------|
+| Toit ja alkoholita joogid| 0.49 | 0.49| 0.51| 
+| Alkoholjoogid ja tubakas| 0.46| 0.47| 0.53| 
+| Rõivad ja jalatsid| 1.68| 1.73| 1.86| 
+| Eluase| 0.73| 0.66| 0.62| 
+| Majapidamiskulud| 1.06|1.12| 1.25|  
+| Tervishoid|1.44 | 1.40| 1.30| 
+| Transport| 1.65 | 1.67| 1.64 | 
+| Side| 1.01 | 1.03| 1.04| 
+| Vaba aeg| 1.36| 1.33| 1.28 | 
+| Haridus| 1.36| 1.56| 1.35 | 
+| Restoranid ja hotellid| 1.17| 1.07| 0.88 | 
+| Mitmesugused kaubad ja teenused| 1.12 | 1.17| 1.27|  
+
+
+
+
+
+
